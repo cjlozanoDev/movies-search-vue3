@@ -1,12 +1,13 @@
 <script>
 import { mixinMovies } from './mixins/mixinMovies'
-import { mixinSearch } from './mixins/mixinSearch'
+import SearchInput from './components/SearchInput.vue'
 import ListMovies from './components/ListMovies.vue'
 
 export default {
-  mixins: [mixinMovies, mixinSearch],
+  mixins: [mixinMovies],
   components: {
-    ListMovies
+    ListMovies,
+    SearchInput
   },
   data() {
     return {
@@ -14,9 +15,8 @@ export default {
     }
   },
   methods: {
-    handleSubmit(event) {
-      event.preventDefault()
-      this.getMovies(this.search)
+    searhMovies(textSearch) {
+      this.getMovies(textSearch)
     }
   }
 }
@@ -26,13 +26,7 @@ export default {
   <div class="page">
     <header>
       <h1>Listado de Pelis</h1>
-      <form class="form" @submit="handleSubmit">
-        <input type="text" v-model="search" />
-        <button type="submit">Buscar</button>
-      </form>
-      <p v-if="textError" :style="{ color: 'red' }">
-        {{ textError }}
-      </p>
+      <SearchInput @search-movies="searhMovies"/>
     </header>
 
     <main>

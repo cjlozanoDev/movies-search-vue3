@@ -1,4 +1,4 @@
-export const mixinSearch = {
+export const mixinInputSearch = {
   data() {
     return {
       search: '',

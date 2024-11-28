@@ -1,10 +1,15 @@
 import { ref, watch } from 'vue'
 
-export const useSearch = () => {
-  const search = ref('')
+export const useSearchInput = (emit) => {
+  const textSearch = ref('')
   const textError = ref(null)
 
-  watch(search, (newSearch) => {
+  const handlerSubmit = (event) => {
+    event.preventDefault()
+    emit('search-movies', textSearch.value)
+  }
+
+  watch(textSearch, (newSearch) => {
     if (newSearch === '') {
       textError.value = 'Error, no se puede buscar una película vacía'
       return
@@ -21,7 +26,8 @@ export const useSearch = () => {
   })
 
   return {
-    search,
-    textError
+    textSearch,
+    textError,
+    handlerSubmit
   }
 }

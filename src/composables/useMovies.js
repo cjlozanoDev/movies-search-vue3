@@ -9,14 +9,14 @@ export const useMovies = (sort) => {
 
   const previousSearch = ref(null)
 
-  const getMovies = async (search) => {
-    if (previousSearch.value === search.value) return
+  const getMovies = async (textSearch) => {
+    if (previousSearch.value === textSearch) return
 
     try {
       loading.value = true
-      const newMovies = await searchMovies(search)
+      const newMovies = await searchMovies(textSearch)
       movies.value = newMovies
-      previousSearch.value = search.value
+      previousSearch.value = textSearch
       isFirstInput.value = false
     } catch (e) {
       error.value = e.message
